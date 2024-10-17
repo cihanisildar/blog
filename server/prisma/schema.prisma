@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PostLength {
+  SHORT
+  MEDIUM
+  LONG
+}
+
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  content   String?  @db.Text
+ mainImageUrl     String?
+  mainImageName    String?
+  contentImageUrls String[]
+  published Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime?          @updatedAt
+  tags      TagsOnPosts[]    @relation("PostToTags")
+   length          PostLength    @default(SHORT) // New field for post length
+}
+
+model Tag {
+   id    Int    @id @default(autoincrement())
+  name  String @unique
+  description String @default("")
+  posts TagsOnPosts[]   
+}
+
+model TagsOnPosts {
+  post       Post     @relation("PostToTags",fields: [postId], references: [id], onDelete: Cascade)
+  postId     Int
+  tag        Tag      @relation(fields: [tagId], references: [id])
+  tagId      Int 
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([postId, tagId])
+}
