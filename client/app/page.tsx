@@ -9,7 +9,7 @@ export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/post/latest-posts", {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/latest-posts`, {
       method: "GET",
     })
       .then((res) => res.json())

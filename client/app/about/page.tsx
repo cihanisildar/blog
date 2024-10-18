@@ -11,7 +11,7 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchReaderPick = async () => {
       try {
-        const response = await fetch("http://localhost:3001/post/60")
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/60`)
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }

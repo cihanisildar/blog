@@ -13,7 +13,7 @@ const TagsPage = () => {
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/tag", {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/tag`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const TagsPage = () => {
       .then((data) => {
         if (data.status === "success") {
           setTags(data.tags);
-          setFilteredTags(data.tags); // Initialize filtered tags
+          setFilteredTags(data.tags);
         }
       })
       .catch((error) => console.error("Error fetching tags:", error));

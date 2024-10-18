@@ -19,7 +19,7 @@ const SinglePostPage: React.FC = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/post/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
