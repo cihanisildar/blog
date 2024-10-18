@@ -1,18 +1,27 @@
-import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
+import express from "express";
 import postRouter from "./routes/post.router";
-import tagRouter from "./routes/tag.router";
 import searchRouter from "./routes/search.router";
-import bodyParser from "body-parser";
+import tagRouter from "./routes/tag.router";
 
-const PORT = process.env.PORT || 3001;
 
 const app = express();
-app.use(bodyParser.json());
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL1,
+  process.env.FRONTEND_URL2,
+  'http://localhost:3000'
+].filter(Boolean);
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL1!, process.env.FRONTEND_URL2!],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
@@ -23,6 +32,12 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use("/post", postRouter);
 app.use("/tag", tagRouter);
 app.use("/search", searchRouter);
-app.listen(PORT, () => {
-  console.log(`Server has started at port ${PORT}`);
-});
+
+export default app;
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Server has started at port ${PORT}`);
+  });
+}
