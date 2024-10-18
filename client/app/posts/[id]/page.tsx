@@ -17,14 +17,19 @@ const SinglePostPage: React.FC = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    if (!id) return;
+    
     const fetchPost = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/post/${id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await response.json();
         if (data.status === "success") {
           setPost(data.post);
@@ -126,7 +131,9 @@ const SinglePostPage: React.FC = () => {
                 {post.updatedAt && (
                   <div className="flex items-center">
                     <Clock className="w-4 h-4 ml-4 mr-2" />
-                    <span className="capitalize">{post.length.toLowerCase()}</span>
+                    <span className="capitalize">
+                      {post.length.toLowerCase()}
+                    </span>
                   </div>
                 )}
               </div>

@@ -9,6 +9,7 @@ export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
+    console.log("Backend URL:", process.env.NEXT_PUBLIC_BACKEND_URL);
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/latest-posts`, {
       method: "GET",
     })
