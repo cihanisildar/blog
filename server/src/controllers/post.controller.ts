@@ -74,7 +74,7 @@ const getLatestPosts = async (req: Request, res: Response) => {
   }
 };
 const createPost = async (req: Request, res: Response): Promise<Response> => {
-  const { title, content, published, length, tags = [] } = req.body;
+  const { title,description, content, published, length, tags = [] } = req.body;
 
   console.log("Body:", req.body);
   console.log("File details:", req.file);
@@ -164,6 +164,7 @@ const createPost = async (req: Request, res: Response): Promise<Response> => {
     const newPost = await prisma.post.create({
       data: {
         title,
+        description,
         content: updatedContent,
         published: published === "true",
         tags: {
@@ -254,7 +255,7 @@ const getPostById = async (req: Request, res: Response) => {
 
 const updatePost = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { title, content, tags,length, assignedBy = "system" } = req.body;
+  const { title,description, content, tags,length, assignedBy = "system" } = req.body;
   const published = req.body.published === "true";
   const file = req.file;
 
@@ -275,6 +276,7 @@ const updatePost = async (req: Request, res: Response) => {
 
     const updateData: any = {
       title,
+      description,
       content,
       published,
       length,

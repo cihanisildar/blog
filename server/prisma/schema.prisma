@@ -23,6 +23,7 @@ enum PostLength {
 model Post {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
+  description String?
   content   String?  @db.Text
  mainImageUrl     String?
   mainImageName    String?

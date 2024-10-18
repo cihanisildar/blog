@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3002"],
+    origin: [process.env.FRONTEND_URL1!, process.env.FRONTEND_URL2!],
     credentials: true,
   })
 );
