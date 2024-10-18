@@ -13,7 +13,7 @@ const TagsPage = () => {
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/tag`, {
+    fetch(`${process.env.BACKEND_URL}/tag`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
