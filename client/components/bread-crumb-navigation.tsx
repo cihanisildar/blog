@@ -1,8 +1,5 @@
-// components/BreadcrumbNavigation.tsx
 "use client";
 
-import React from "react";
-import { usePathname } from "next/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,15 +7,15 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Button } from "./ui/button";
-import { ChevronRight } from "lucide-react";
+import { usePathname } from "next/navigation";
+import React from "react";
 
 function BreadcrumbNavigation() {
   const pathname = usePathname();
   const pathSegments = pathname.split("/").filter(Boolean);
 
   return (
-    <div className="sticky top-0 z-10 bg-white">
+    <div className="sticky top-0 z-10 bg-white w-full">
       <div className="px-8 py-4  flex items-center justify-between text-[#475467]">
         <Breadcrumb>
           <BreadcrumbList>
@@ -45,7 +42,6 @@ function BreadcrumbNavigation() {
             })}
           </BreadcrumbList>
         </Breadcrumb>{" "}
-        {/* <Button className="rounded-full">Sign in <ChevronRight className="font-bold ml-1" strokeWidth={3} size={16} fontWeight={500} /></Button> */}
       </div>
     </div>
   );

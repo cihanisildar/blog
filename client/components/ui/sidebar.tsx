@@ -1,9 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
-import React, { useState, createContext, useContext } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import { AnimatePresence, motion } from "framer-motion";
+import Link, { LinkProps } from "next/link";
+import React, { createContext, useContext, useState } from "react";
 
 interface Links {
   label: string;
@@ -158,10 +158,12 @@ export const MobileSidebar = ({
 export const SidebarLink = ({
   link,
   className,
+  onClick, 
   ...props
 }: {
   link: Links;
   className?: string;
+  onClick?: () => void; 
   props?: LinkProps;
 }) => {
   const { open, animate } = useSidebar();
@@ -169,9 +171,10 @@ export const SidebarLink = ({
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
+        "flex items-center justify-start gap-2 group/sidebar py-2",
         className
       )}
+      onClick={onClick} 
       {...props}
     >
       {link.icon}

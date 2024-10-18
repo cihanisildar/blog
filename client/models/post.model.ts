@@ -10,13 +10,14 @@ export enum PostLength {
 export interface Post {
   id: number;
   title: string;
-  content?: string; // Make this optional if it's nullable in your schema
+  content?: string;
+  description?: string;
   published: boolean;
   createdAt: Date;
   mainImageUrl?: string;
   mainImageName?: string;
   contentImageUrls: string[];
-  updatedAt?: Date; // Make this optional if it's nullable in your schema
-  tags: TagsOnPosts[]; // Update to reflect the correct relationship
+  updatedAt?: Date; 
+  tags: TagsOnPosts[]; 
   length: PostLength;
 }
