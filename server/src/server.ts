@@ -11,7 +11,8 @@ const allowedOrigins = [
   process.env.FRONTEND_URL1,
   process.env.FRONTEND_URL2,
   "https://blog-omega-ten-84.vercel.app",
-  "https://blogclient-ten.vercel.app"
+  "https://blogclient-ten.vercel.app",
+  "http://localhost:3002"
 ].filter(Boolean);
 
 app.use(
