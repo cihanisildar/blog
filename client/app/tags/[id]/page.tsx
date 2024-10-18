@@ -39,7 +39,7 @@ const SingleTagPage = () => {
 
   const fetchTag = async (tagId: string) => {
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/tag/${tagId}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/tag/${tagId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch tag");
       }

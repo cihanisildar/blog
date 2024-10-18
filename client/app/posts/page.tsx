@@ -24,7 +24,7 @@ const PostsPage = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/post`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const PostsPage = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${process.env.BACKEND_URL}/search?q=${encodeURIComponent(query)}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/search?q=${encodeURIComponent(query)}`,
         {
           method: "GET",
           headers: {
