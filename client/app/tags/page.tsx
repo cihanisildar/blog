@@ -5,11 +5,13 @@ import { Tag } from "@/models/tag.model";
 import { TagIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
+import { PostCardSkeletonGrid } from "@/components/skeletons/post-card-skeleton";
 
 const TagsPage = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -26,7 +28,10 @@ const TagsPage = () => {
           setFilteredTags(data.tags);
         }
       })
-      .catch((error) => console.error("Error fetching tags:", error));
+      .catch((error) => console.error("Error fetching tags:", error))
+      .finally(() => {
+        setLoading(false); // Set loading to false after data is fetched
+      });
   }, []);
 
   // Search function
@@ -44,7 +49,7 @@ const TagsPage = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
-    
+
     // Clear the previous timeout
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
@@ -71,7 +76,9 @@ const TagsPage = () => {
         </div>
       </div>
       <div className="flex-grow overflow-y-auto px-8 py-4">
-        {filteredTags.length === 0 ? (
+        {loading ? (
+          <PostCardSkeletonGrid count={8} />
+        ) : filteredTags.length === 0 ? (
           <div className="text-center text-gray-500">
             <p>No tags found.</p>
           </div>

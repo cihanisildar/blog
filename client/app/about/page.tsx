@@ -1,29 +1,33 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from "react"
-import { Github, Linkedin, Mail } from "lucide-react"
-import Link from "next/link"
-import { Post } from "@/models/post.model"
+import React, { useEffect, useState } from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import Link from "next/link";
+import { Post } from "@/models/post.model";
+import { ReadersPickSkeleton } from "@/components/skeletons/readers-pick-card-skeleton";
 
 export default function AboutPage() {
-  const [readerPick, setReaderPick] = useState<Post | null>(null)
+  const [readerPick, setReaderPick] = useState<Post | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchReaderPick = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/3`)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post/3`);
         if (!response.ok) {
-          throw new Error("Network response was not ok")
+          throw new Error("Network response was not ok");
         }
-        const data = await response.json()
-        setReaderPick(data.post)
+        const data = await response.json();
+        setReaderPick(data.post);
       } catch (error) {
-        console.error("Failed to fetch the reader's pick:", error)
+        console.error("Failed to fetch the reader's pick:", error);
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchReaderPick()
-  }, [])
+    fetchReaderPick();
+  }, []);
 
   return (
     <div className="flex flex-col h-full overflow-auto pb-20">
@@ -90,7 +94,9 @@ export default function AboutPage() {
                   Reader&apos;s Pick
                 </h3>
                 <div className="mt-4 bg-gradient-to-bl from-green-100 to-yellow-200 p-6 rounded-lg border border-green-300 shadow-lg hover:shadow-xl transition-shadow">
-                  {readerPick ? (
+                  {isLoading ? (
+                    <ReadersPickSkeleton className="w-full" />
+                  ) : readerPick ? (
                     <>
                       <h4 className="text-2xl font-bold text-green-800">
                         <strong>{readerPick.title}</strong>
@@ -105,7 +111,7 @@ export default function AboutPage() {
                       </Link>
                     </>
                   ) : (
-                    <p className="text-gray-500">Loading...</p>
+                    <p className="text-gray-500">No post available</p>
                   )}
                 </div>
               </div>
@@ -114,5 +120,5 @@ export default function AboutPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

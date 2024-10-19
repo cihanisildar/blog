@@ -15,7 +15,7 @@ const PostsPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Default to true to show loader initially
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const PostsPage = () => {
   }, []);
 
   const fetchPosts = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/post`, {
         method: "GET",
@@ -37,6 +38,8 @@ const PostsPage = () => {
       }
     } catch (error) {
       console.error("Error fetching posts:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,7 +69,7 @@ const PostsPage = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
-    
+
     // Clear the previous timeout
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
@@ -77,7 +80,7 @@ const PostsPage = () => {
       if (query) {
         searchPosts(query);
       } else {
-        setFilteredPosts(posts);
+        setFilteredPosts(posts); // Reset to original posts if search query is empty
       }
     }, 300);
   };
@@ -106,18 +109,20 @@ const PostsPage = () => {
 
       <div className="flex-grow overflow-y-auto">
         {isLoading ? (
+          // Display skeleton while loading
           <div className="flex justify-center items-center h-64">
             <PostCardSkeletonGrid count={8} />
           </div>
         ) : filteredPosts.length === 0 ? (
+          // No results or posts
           <div className="flex justify-center items-center h-64 max-w-3xl mx-auto">
             <p className="text-center text-lg text-gray-700">
               No posts matched your search. Try different keywords or check back
-              soon for new content. The perfect post might be just around the
-              corner!
+              soon for new content.
             </p>
           </div>
         ) : (
+          // Render posts in a Masonry layout
           <Masonry
             breakpointCols={breakpointColumnsObj}
             className="flex gap-4 w-auto px-8 py-4"
