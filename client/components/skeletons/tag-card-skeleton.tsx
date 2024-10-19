@@ -26,7 +26,7 @@ export const TagCardSkeleton = ({ className }: { className?: string }) => {
   
   export const TagCardSkeletonGrid = ({ count = 8 }: { count?: number }) => {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {[...Array(count)].map((_, index) => (
           <TagCardSkeleton key={index} />
         ))}

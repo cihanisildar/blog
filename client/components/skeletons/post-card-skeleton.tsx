@@ -10,10 +10,12 @@ interface PostCardSkeletonProps {
 
 export const PostCardSkeleton = ({ className }: PostCardSkeletonProps) => {
   return (
-    <div className={cn(
-      "block mb-4 overflow-hidden border rounded-[8px] animate-pulse",
-      className
-    )}>
+    <div
+      className={cn(
+        "block mb-4 w-full overflow-hidden border rounded-[8px] animate-pulse",
+        className
+      )}
+    >
       <div className="relative w-full h-[200px] bg-gray-200" />
       <div className="p-4">
         <div className="h-6 bg-gray-200 rounded w-3/4 mb-2" />
@@ -34,7 +36,7 @@ export const PostCardSkeletonGrid = ({ count = 8 }: PostCardSkeletonProps) => {
   return (
     <Masonry
       breakpointCols={breakpointColumnsObj}
-      className="flex gap-4 w-auto"
+      className="flex gap-4 w-full px-8 py-4"
       columnClassName="bg-clip-padding"
     >
       {[...Array(count)].map((_, index) => (

@@ -30,7 +30,7 @@ const TagsPage = () => {
       })
       .catch((error) => console.error("Error fetching tags:", error))
       .finally(() => {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       });
   }, []);
 

@@ -109,12 +109,10 @@ const PostsPage = () => {
 
       <div className="flex-grow overflow-y-auto">
         {isLoading ? (
-          // Display skeleton while loading
-          <div className="flex justify-center items-center h-64">
-            <PostCardSkeletonGrid count={8} />
-          </div>
+         <div className="flex justify-center items-start pt-10 h-full">
+         <PostCardSkeletonGrid count={8} />
+       </div>
         ) : filteredPosts.length === 0 ? (
-          // No results or posts
           <div className="flex justify-center items-center h-64 max-w-3xl mx-auto">
             <p className="text-center text-lg text-gray-700">
               No posts matched your search. Try different keywords or check back
