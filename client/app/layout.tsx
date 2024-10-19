@@ -11,7 +11,7 @@ const font = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Chain's Dev Blog",
+  title: "Chain's Blog",
   description: "Exploring the world of myself.",
   icons: {
     icon: "/origami_2722241.png",
