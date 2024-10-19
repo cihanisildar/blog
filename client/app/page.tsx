@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     console.log("Backend URL:", process.env.NEXT_PUBLIC_BACKEND_URL);
@@ -23,7 +23,7 @@ export default function HomePage() {
         }
       })
       .catch((error) => console.error("Error fetching posts:", error))
-      .finally(() => setIsLoading(false)); // Stop loading when data is fetched
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
