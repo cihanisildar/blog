@@ -13,6 +13,11 @@ const font = Poppins({
 export const metadata: Metadata = {
   title: "Chain's Dev Blog",
   description: "Exploring the world of myself.",
+  icons: {
+    icon: "/origami_2722241.png",
+    shortcut: "/origami_2722241.png",
+    apple: "/origami_2722241.png",
+  },
 };
 
 export default function RootLayout({
